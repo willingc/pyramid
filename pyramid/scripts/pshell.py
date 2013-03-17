@@ -153,16 +153,19 @@ class PShellCommand(object):
         shell = None
         user_shell = self.options.python_shell.lower()
         if not user_shell:
-            shell = self.make_ipython_v0_11_shell()
+            shell = self.make_ipython_shell()
             if shell is None:
                 shell = self.make_ipython_v0_10_shell()
             if shell is None:
                 shell = self.make_bpython_shell()
 
         elif user_shell == 'ipython':
-            shell = self.make_ipython_v0_11_shell()
+            shell = self.make_ipython_shell()
             if shell is None:
                 shell = self.make_ipython_v0_10_shell()
+
+        elif user_shell.startswith('ipython-notebook'):
+            shell = self.make_ipython_notebook_shell()
 
         elif user_shell == 'bpython':
             shell = self.make_bpython_shell()
@@ -191,7 +194,7 @@ class PShellCommand(object):
             BPShell(locals_=env, banner=help + '\n')
         return shell
 
-    def make_ipython_v0_11_shell(self, IPShellFactory=None):
+    def make_ipython_shell(self, IPShellFactory=None):
         if IPShellFactory is None: # pragma: no cover
             try:
                 from IPython.frontend.terminal.embed import (
@@ -215,5 +218,20 @@ class PShellCommand(object):
             IPShell = IPShellFactory(argv=[], user_ns=env)
             IPShell.set_banner(IPShell.IP.BANNER + '\n' + help + '\n')
             IPShell()
+        return shell
+
+    def make_ipython_notebook_shell(self, IPShellFactory=None):
+        if IPShellFactory is None: # pragma: no cover
+            try:
+                from IPython.frontend.html.notebook.notebookapp import (
+                    NotebookApp
+                )
+                IPShellFactory = NotebookApp
+            except ImportError:
+                return None
+        def shell(env, help):
+            app = NotebookApp.instance()
+            app.initialize(argv='')
+            app.start()
         return shell
 
