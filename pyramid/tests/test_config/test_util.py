@@ -365,19 +365,31 @@ class TestPredicateList(unittest.TestCase):
         from pyramid.exceptions import ConfigurationError
         self.assertRaises(ConfigurationError, self._callFUT, unknown=1)
 
-    def test_notted(self):
+    def test_notted_configerror(self):
+        from pyramid.exceptions import ConfigurationError
         from pyramid.config import not_
-        from pyramid.testing import DummyRequest
-        request = DummyRequest()
-        _, predicates, _ = self._callFUT(
+        self.assertRaises(ConfigurationError, self._callFUT,
             xhr='xhr',
             request_method=not_('POST'),
             header=not_('header'),
             )
+
+    def test_notted_ok(self):
+        from pyramid.config import not_
+        _, predicates, _ = self._callFUT(
+            xhr='xhr',
+            path_info=not_('/path_info'),
+            header=not_('header'),
+            )
+        from pyramid.testing import DummyRequest
+        request = DummyRequest()
+        request.upath_info = request.path_info
+        request.is_xhr = False
         self.assertEqual(predicates[0].text(), 'xhr = True')
-        self.assertEqual(predicates[1].text(),
-                         "!request_method = POST")
-        self.assertEqual(predicates[2].text(), '!header header')
+        self.assertEqual(predicates[1].text(), '!path_info = /path_info')
+        self.assertEqual(predicates[2].text(),
+                         "!header header")
+        self.assertEqual(predicates[0](None, request), False)
         self.assertEqual(predicates[1](None, request), True)
         self.assertEqual(predicates[2](None, request), True)
         

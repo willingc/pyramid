@@ -48,6 +48,7 @@ class RequestMethodPredicate(object):
         return request.method in self.val
 
 class PathInfoPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         self.orig = val
         try:
@@ -65,6 +66,7 @@ class PathInfoPredicate(object):
         return self.val.match(request.upath_info) is not None
     
 class RequestParamPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         val = as_sorted_tuple(val)
         reqs = []
@@ -95,6 +97,7 @@ class RequestParamPredicate(object):
         return True
 
 class HeaderPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         name = val
         v = None
@@ -137,6 +140,7 @@ class AcceptPredicate(object):
         return self.val in request.accept
 
 class ContainmentPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         self.val = config.maybe_dotted(val)
 
@@ -150,6 +154,7 @@ class ContainmentPredicate(object):
         return find_interface(ctx, self.val) is not None
     
 class RequestTypePredicate(object):
+    negatable = True
     def __init__(self, val, config):
         self.val = val
 
@@ -162,6 +167,7 @@ class RequestTypePredicate(object):
         return self.val.providedBy(request)
     
 class MatchParamPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         val = as_sorted_tuple(val)
         self.val = val
@@ -258,6 +264,7 @@ class CheckCSRFTokenPredicate(object):
         return True
 
 class PhysicalPathPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         if is_nonstr_iter(val):
             self.val = tuple(val)
@@ -276,6 +283,7 @@ class PhysicalPathPredicate(object):
         return False
 
 class EffectivePrincipalsPredicate(object):
+    negatable = True
     def __init__(self, val, config):
         if is_nonstr_iter(val):
             self.val = set(val)

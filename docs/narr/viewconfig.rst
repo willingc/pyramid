@@ -560,8 +560,8 @@ configuration`.  However, they both do the same thing.
 Inverting Predicate Values
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You can invert the meaning of any predicate value by wrapping it in a call to
-:class:`pyramid.config.not_`.
+You can invert the meaning of a supported predicate value by wrapping it in a
+call to :class:`pyramid.config.not_`.
 
 .. code-block:: python
    :linenos:
@@ -571,11 +571,21 @@ You can invert the meaning of any predicate value by wrapping it in a call to
    config.add_view(
        'mypackage.views.my_view',
        route_name='ok',
-       request_method=not_('POST')
+       header=not_('X-Foo')
        )
 
 The above example will ensure that the view is called if the request method
-is *not* ``POST``, at least if no other view is more specific.
+does not have the ``X-Foo`` header, at least if no other view is more specific.
+
+A predicate must be *negatable* to use ``not_`` against its value.  The current
+set of built-in negatable predicates are: ``path_info``, ``request_param``,
+``header``, ``containment``, ``request_type``, ``match_param``,
+``physical_path``, and ``effective_principals``.  If you try to use ``not_``
+against a non-negatable predicate, an error will be raised at startup time.
+
+You can make sure a custom view predicate added via
+:meth:`pyramid.config.Configurator.add_view_predicate` is negatable by adding a
+``negatable`` attribute to it that is True.
 
 This technique of wrapping a predicate value in ``not_`` can be used anywhere
 predicate values are accepted:

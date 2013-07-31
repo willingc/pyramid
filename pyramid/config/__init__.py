@@ -1152,7 +1152,17 @@ def resolveConflicts(actions):
             # and "i" exist for sorting purposes after conflict resolution.
             ainfo = (order, i, action)
 
-            discriminator = undefer(action['discriminator'])
+            try:
+                discriminator = undefer(action['discriminator'])
+            except:
+                t, v, tb = sys.exc_info()
+                try:
+                    reraise(ConfigurationExecutionError,
+                            ConfigurationExecutionError(t, v, action['info']),
+                            tb)
+                finally:
+                   del t, v, tb
+                
             action['discriminator'] = discriminator
 
             if discriminator is None:

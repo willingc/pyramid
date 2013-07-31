@@ -110,7 +110,13 @@ class PredicateList(object):
                     notted = True
                 pred = predicate_factory(realval, config)
                 if notted:
-                    pred = Notted(pred)
+                    if getattr(pred, 'negatable', False):
+                        pred = Notted(pred)
+                    else:
+                        raise ConfigurationError(
+                            '%s is not a negatable predicate' % (pred.text(),),
+                            )
+
                 hashes = pred.phash()
                 if not is_nonstr_iter(hashes):
                     hashes = [hashes]
