@@ -13,7 +13,7 @@ and 500s are server errors.
 
 Exception
   HTTPException
-    HTTPOk
+    HTTPSuccessful
       * 200 - HTTPOk
       * 201 - HTTPCreated
       * 202 - HTTPAccepted
@@ -288,6 +288,12 @@ ${body}''')
 
 WSGIHTTPException = HTTPException # b/c post 1.5
 
+class HTTPSuccessful(HTTPException):
+    """
+    Base class for exceptions with status codes in the 200s (successful
+    responses)
+    """
+
 class HTTPError(HTTPException):
     """
     base class for exceptions with status codes in the 400s and 500s
@@ -306,23 +312,25 @@ class HTTPRedirection(HTTPException):
     condition.
     """
 
-class HTTPOk(HTTPException):
+############################################################
+## 2xx success
+############################################################
+
+class HTTPOk(HTTPSuccessful):
     """
-    Base class for exceptions with status codes in the 200s (successful
-    responses)
+    subclass of :class:`~HTTPSuccessful`
+
+    This indicates that request has been fulfilled and resulted in a new
+    resource being created.
     
     code: 200, title: OK
     """
     code = 200
     title = 'OK'
 
-############################################################
-## 2xx success
-############################################################
-
-class HTTPCreated(HTTPOk):
+class HTTPCreated(HTTPSuccessful):
     """
-    subclass of :class:`~HTTPOk`
+    subclass of :class:`~HTTPSuccessful`
 
     This indicates that request has been fulfilled and resulted in a new
     resource being created.
@@ -332,9 +340,9 @@ class HTTPCreated(HTTPOk):
     code = 201
     title = 'Created'
 
-class HTTPAccepted(HTTPOk):
+class HTTPAccepted(HTTPSuccessful):
     """
-    subclass of :class:`~HTTPOk`
+    subclass of :class:`~HTTPSuccessful`
 
     This indicates that the request has been accepted for processing, but the
     processing has not been completed.
@@ -345,9 +353,9 @@ class HTTPAccepted(HTTPOk):
     title = 'Accepted'
     explanation = 'The request is accepted for processing.'
 
-class HTTPNonAuthoritativeInformation(HTTPOk):
+class HTTPNonAuthoritativeInformation(HTTPSuccessful):
     """
-    subclass of :class:`~HTTPOk`
+    subclass of :class:`~HTTPSuccessful`
 
     This indicates that the returned metainformation in the entity-header is
     not the definitive set as available from the origin server, but is
@@ -358,9 +366,9 @@ class HTTPNonAuthoritativeInformation(HTTPOk):
     code = 203
     title = 'Non-Authoritative Information'
 
-class HTTPNoContent(HTTPOk):
+class HTTPNoContent(HTTPSuccessful):
     """
-    subclass of :class:`~HTTPOk`
+    subclass of :class:`~HTTPSuccessful`
 
     This indicates that the server has fulfilled the request but does
     not need to return an entity-body, and might want to return updated
@@ -372,9 +380,9 @@ class HTTPNoContent(HTTPOk):
     title = 'No Content'
     empty_body = True
 
-class HTTPResetContent(HTTPOk):
+class HTTPResetContent(HTTPSuccessful):
     """
-    subclass of :class:`~HTTPOk`
+    subclass of :class:`~HTTPSuccessful`
 
     This indicates that the server has fulfilled the request and
     the user agent SHOULD reset the document view which caused the
@@ -386,9 +394,9 @@ class HTTPResetContent(HTTPOk):
     title = 'Reset Content'
     empty_body = True
 
-class HTTPPartialContent(HTTPOk):
+class HTTPPartialContent(HTTPSuccessful):
     """
-    subclass of :class:`~HTTPOk`
+    subclass of :class:`~HTTPSuccessful`
 
     This indicates that the server has fulfilled the partial GET
     request for the resource.

@@ -160,6 +160,9 @@ Features
   https://github.com/Pylons/pyramid/issues/611 and the documentation section 
   in the "URL Dispatch" chapter entitled "External Routes" for more information.
 
+- Added a new base class ``pyramid.httpexceptions.HTTPSuccessful`` into the
+  http exception hierarchy representing all 2xx successful response codes.
+
 Bug Fixes
 ---------
 
@@ -253,6 +256,12 @@ Backwards Incompatibilities
 - The ``pyramid.interfaces.IResourceURL`` interface has now grown two new
   attributes: ``virtual_path_tuple`` and ``physical_path_tuple``.  These should
   be the tuple form of the resource's path (physical and virtual).
+
+- Injected a new ``pyramid.httpexceptions.HTTPSuccessful`` base class for
+  all 2xx responses into the exception hierarchy. The previous base class
+  for 2xx responses was ``pyramid.httpexceptions.HTTPOk``. This changes the
+  semantics of ``pyramid.httpexceptions.HTTPOk`` to represent only a 200
+  response.
 
 1.4 (2012-12-18)
 ================
