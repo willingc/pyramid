@@ -89,7 +89,7 @@ Create a project directory structure
 ------------------------------------
 
 From your user home directory, create the following initial directory structure
-as indicated in the figure below.
+for your workspace named "pyramid" as indicated in the figure below.
 
 .. figure:: _static/directory_structure_initial.png
    :alt: initial directory structure
