@@ -113,15 +113,16 @@ The commands to do so are as follows:
     c:\> mkdir quick_tutorial
     
 In the above figure, your user home directory is represented by ``~``.  In
-your home directory, all of your projects are in the ``projects`` directory. 
-This is a general convention not specific to Pyramid that many developers use.
-Windows users will do well to use ``c:\`` as the location for ``projects`` in
-order to avoid spaces in any of the path names.
+your home directory, all of your workspaces are in the ``projects`` directory.
+This is a general convention that many developers use. Windows users will do
+well to use ``c:\`` as the location for ``projects`` in order to avoid spaces
+in any of the path names.
 
-Next within ``projects`` is your workspace directory, here named ``pyramid``. 
-A workspace is a common term used by integrated development environments (IDE)
-like PyCharm and PyDev that stores isolated Python environments (virtualenvs)
-and specific project files and repositories.
+Next within ``projects`` is your workspace directory, here named
+``quick_tutorial``. A workspace stores isolated Python environments
+(virtualenvs) and specific project files and repositories. "Workspace" is a
+common term used by integrated development environments (IDE), like PyCharm,
+Eclipse, and PyDev.
 
 
 .. _set-an-environment-variable:
