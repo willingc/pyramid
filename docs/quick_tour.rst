@@ -104,13 +104,13 @@ The commands to do so are as follows:
     $ cd ~
     $ mkdir projects
     $ cd projects
-    $ mkdir pyramid
+    $ mkdir quick_tutorial
     
     # Windows
     c:\> cd \
     c:\> mkdir projects
     c:\> cd projects
-    c:\> mkdir pyramid
+    c:\> mkdir quick_tutorial
     
 In the above figure, your user home directory is represented by ``~``.  In
 your home directory, all of your projects are in the ``projects`` directory. 
@@ -134,11 +134,11 @@ We set an environment variable to save typing later.
 .. code-block:: bash
     
     # Mac and Linux
-    $ export VENV=~/projects/pyramid/env33/bin/
+    $ export VENV=~/projects/quick_tutorial/env33
     
     # Windows
     # TODO: This command does not work
-    c:\> set VENV=c:\projects\pyramid\env33
+    c:\> set VENV=c:\projects\quick_tutorial\env33
 
 
 .. _create-a-virtual-environment:
@@ -154,7 +154,7 @@ Create a Virtual Environment
     
     # Windows
     # TODO: This command does work, but we should improve it with %VENV%
-    c:\> .\Python33\python -m venv c:\projects\pyramid\env33
+    c:\> .\Python33\python -m venv %VENV%
 
 .. note:: ``pyvenv`` is a tool to create isolated Python environments. The
     venv module provides support for creating lightweight "virtual
