@@ -208,13 +208,7 @@ Install Pyramid
     # Windows
     # TODO Something goes here
 
-Our Python environment now has the Pyramid software available.  Your directory structure should now look like the following image.
-
-.. figure:: _static/directory_structure_pyramid.png
-   :alt: Pyramid directory structure
-
-   A Pyramid directory structure.
-
+Our Python environment now has the Pyramid software available.
 
 .. note::
 
@@ -238,9 +232,16 @@ Our Python environment now has the Pyramid software available.  Your directory s
     Pyramid tutorials.
 
 .. figure:: _static/directory_structure_generic.png
-   :alt: generic directory structure
+   :alt: generic project directory structure
 
-   A generic directory structure.
+   A generic project directory structure.
+
+A typical Pyramid project will look as follows.
+
+.. figure:: _static/directory_structure_pyramid.png
+   :alt: typical Pyramid directory structure
+
+   A typical Pyramid directory structure.
 
 
 Hello World
