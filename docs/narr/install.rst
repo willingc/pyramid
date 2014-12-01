@@ -41,7 +41,7 @@ From `Python.org <http://python.org/download/mac/>`_:
     <http://python.org/download/releases/>`_.
 
 It is recommended to download one of the *installer* versions, unless you
-prefer to install your Python through a packgage manager (e.g., macports or
+prefer to install your Python through a package manager (e.g., macports or
 homebrew) or to build your Python from source.
 
 Unless you have a need for a specific earlier version, it is recommended to
